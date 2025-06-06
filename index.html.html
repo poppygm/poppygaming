@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Robux Quiz Survey</title>
+<style>
+  body, html {
+    height: 100%;
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #0f0f0f, #005500);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .quiz-container {
+    background: linear-gradient(135deg, #0f0f0f, #005500);
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
+    width: 350px;
+    padding: 30px 25px;
+    text-align: center;
+    color: #c0ffc0;
+  }
+
+  .title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: #a0ffa0;
+  }
+
+  .description {
+    font-size: 0.9rem;
+    color: #ffffff;
+    margin-bottom: 25px;
+    font-style: italic;
+    font-weight: bold;
+  }
+
+  .question {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+  }
+
+  .options {
+    margin-bottom: 30px;
+  }
+
+  .option-label {
+    display: block;
+    margin: 10px 0;
+    font-size: 1rem;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  input[type="radio"] {
+    margin-right: 10px;
+    cursor: pointer;
+  }
+
+  .continue-btn {
+    background: linear-gradient(45deg, #004400, #00ff00);
+    border: none;
+    color: #000;
+    font-weight: 700;
+    padding: 12px 30px;
+    font-size: 1.1rem;
+    border-radius: 25px;
+    cursor: pointer;
+    animation: zoomPulse 2s infinite alternate ease-in-out;
+    transition: background 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .continue-btn:hover {
+    background: linear-gradient(45deg, #006600, #00cc00);
+    color: #fff;
+  }
+
+  @keyframes zoomPulse {
+    0% {
+      transform: scale(1);
+    }
+    100% {
+      transform: scale(1.1);
+    }
+  }
+
+  /* Popup Notification */
+  .popup {
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    background: linear-gradient(45deg, #ffd700, #ffffff);
+    padding: 15px 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    color: #333;
+    font-size: 0.9rem;
+    font-weight: bold;
+    display: none;
+    z-index: 1000;
+  }
+</style>
+</head>
+<body>
+
+<div class="quiz-container">
+  <div class="title">Do you want to Earn free Robux? Check out below</div>
+  <div class="description">Complete this 5 questions Survey to Start</div>
+
+  <form>
+    <div class="question">Are you ready to start earning free Robux?</div>
+
+    <div class="options">
+      <label class="option-label"><input type="radio" name="ready" value="yes" required /> Yes, let's go!</label>
+      <label class="option-label"><input type="radio" name="ready" value="no" /> Not right now</label>
+    </div>
+
+    <a href="https://www.gamee.forum/click?offer_id=32065&pub_id=243512&pub_click_id=ADD_CLICK_ID_HERE&site=PASS_SITE_HERE" class="continue-btn" target="_blank">Continue</a>
+  </form>
+</div>
+
+<div class="popup" id="popup"></div>
+
+<script>
+  const popup = document.getElementById('popup');
+  const names1 = ['Aaron', 'Sophia', 'Mason', 'Olivia', 'Ethan', 'Emma', 'Logan', 'Ava', 'Noah', 'Liam', 'Mia', 'Charlotte', 'Benjamin', 'Harper', 'Jameson'];
+  const names2 = ['James', 'Isabella', 'Alexander', 'Emily', 'Michael', 'Amelia', 'Daniel', 'Aria', 'Henry', 'Ellie', 'Lucas', 'Grace', 'Jacob', 'Zoe', 'Nathan'];
+  const robuxAmounts = Array.from({ length: 901 }, (_, i) => i + 100); // Generate 100 to 1000
+  const times = ['5 seconds ago', '30 seconds ago', '1 minute ago', '2 minutes ago', '5 minutes ago', '10 minutes ago'];
+
+  function getRandomElement(array) {
+    return array[Math.floor(Math.random() * array.length)];
+  }
+
+  function showPopup() {
+    const type = Math.random() > 0.5 ? 1 : 2;
+    const name = type === 1 ? getRandomElement(names1) : getRandomElement(names2);
+    const robux = getRandomElement(robuxAmounts);
+    const time = getRandomElement(times);
+    const message =
+      type === 1
+        ? `${name} has earned ${robux} Robux ${time}`
+        : `${name} has just received ${robux} Robux ${time}`;
+    popup.textContent = message;
+    popup.style.display = 'block';
+
+    setTimeout(() => {
+      popup.style.display = 'none';
+    }, 4000); // Hide after 4 seconds
+  }
+
+  // Show popup every 5 seconds
+  setInterval(showPopup, 5000);
+</script>
+
+</body>
+</html>
