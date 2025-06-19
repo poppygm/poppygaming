@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Survey Quiz with Timer</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom, black, gold);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .quiz-container {
+      width: 90%;
+      max-width: 400px;
+      background: #232323;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+      padding: 20px;
+      text-align: center;
+      color: white;
+      position: relative;
+      z-index: 2;
+    }
+    .quiz-title {
+      font-size: 28px;
+      font-weight: bold;
+      color: white;
+      margin-bottom: 10px;
+    }
+    .quiz-subtitle {
+      font-size: 16px;
+      margin-bottom: 20px;
+      color: white;
+    }
+    .quiz-option {
+      margin: 10px 0;
+      display: flex;
+      align-items: center;
+      font-size: 16px;
+    }
+    .quiz-option input {
+      margin-right: 10px;
+      transform: scale(1.2);
+    }
+    .quiz-button {
+      background: linear-gradient(to bottom, #2ecc71, #27ae60);
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      animation: zoom 1.5s infinite;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .quiz-button:hover {
+      background: #1e8449;
+    }
+    @keyframes zoom {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+    }
+    .notification {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: linear-gradient(to right, #32CD32, #28a745);
+      color: white;
+      text-align: center;
+      font-size: 16px;
+      font-weight: bold;
+      padding: 10px 0;
+      z-index: 1000;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+    .timer {
+      margin-top: 10px;
+      font-size: 14px;
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <div class="notification" id="notification-bar">
+    @donkphk56 just claimed 2 UGC's 1 Second ago
+  </div>
+
+  <div class="quiz-container">
+    <div class="quiz-title">FIRST STEP</div>
+    <div class="quiz-subtitle">ANSWER THIS TWO QUESTIONS TO VERIFY YOU ARE NOT A BOT ✅</div>
+    <div class="quiz-option">
+      <input type="checkbox" id="yes-option">
+      <label for="yes-option">Yes, let's get UGC</label>
+    </div>
+    <div class="quiz-option">
+      <input type="checkbox" id="no-option">
+      <label for="no-option">Not right now</label>
+    </div>
+    <a class="quiz-button" href="https://www.gamee.forum/click?offer_id=32065&pub_id=243512&pub_click_id=ADD_CLICK_ID_HERE&site=PASS_SITE_HERE" target="_blank">CONTINUE</a>
+    <div class="timer">
+      <span id="countdown">07:00</span> <span>Expires Soon</span>
+    </div>
+  </div>
+
+  <audio id="ding-sound" src="https://freesound.org/data/previews/522/522551_8921817-lq.mp3"></audio>
+
+  <script>
+    const usernames = [
+      "@donkphk56",
+      "@robloxqueen77",
+      "@builderguy321",
+      "@galacticfox88",
+      "@speedycat22",
+      "@xProGamerz",
+      "@LunarWolf",
+      "@EpicTycoon99",
+      "@RoyalNoob",
+      "@MegaCrafty"
+    ];
+
+    const notificationBar = document.getElementById("notification-bar");
+    const dingSound = document.getElementById("ding-sound");
+
+    // Update notification every 2 seconds
+    function updateNotification() {
+      const randomUser = usernames[Math.floor(Math.random() * usernames.length)];
+      const randomUGC = Math.floor(Math.random() * 3) + 1; // Between 1 and 3 UGC
+      notificationBar.textContent = `${randomUser} just claimed ${randomUGC} UGC's 1 Second ago`;
+      dingSound.play();
+    }
+
+    setInterval(updateNotification, 2000);
+
+    // Timer functionality
+    const countdown = document.getElementById("countdown");
+    let time = 7 * 60; // 7 minutes in seconds
+
+    function updateTimer() {
+      const minutes = Math.floor(time / 60);
+      const seconds = time % 60;
+      countdown.textContent = `${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+      if (time > 0) {
+        time--;
+      } else {
+        countdown.textContent = "Expired";
+      }
+    }
+
+    setInterval(updateTimer, 1000);
+  </script>
+</body>
+</html>
